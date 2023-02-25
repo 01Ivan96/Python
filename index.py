@@ -1,67 +1,59 @@
-# Задача 2: Найдите сумму цифр трехзначного числа.
+import random
 
-number = 0
-while number < 100 or number > 999:
-    number = int(input("Введите целое трёхзначное число: "))
-sum = 0
+# Задача 10: На столе лежат n монеток. Некоторые из них лежат вверх решкой, а некоторые – гербом. Определите минимальное число монеток, которые нужно перевернуть, чтобы все монетки были повернуты вверх одной и той же стороной. Выведите минимальное количество монет, которые нужно перевернуть
+# '''
+numberCoins = int(input("Кол-во монет: "))
 
-# 1 способ
-newnumber = number
-while newnumber > 0:
-    sum += newnumber % 10
-    newnumber //= 10
-print(sum)
-'''
-# 2 способ
-strNumber = str(number)
-for i in strNumber:
-    sum += int(i)
-print(sum)
-'''
+arrayCoins = []
+for i in range(numberCoins):
+    arrayCoins.append(random.randint(0, 1))
+print(arrayCoins)
 
-# Задача 4: Петя, Катя и Сережа делают из бумаги журавликов. Вместе они сделали S журавликов. Сколько журавликов сделал каждый ребенок, если известно, что Петя и Сережа сделали одинаковое количество журавликов, а Катя сделала в два раза больше журавликов, чем Петя и Сережа вместе?
-'''
-number = 2
-while number % 3 != 0:
-    number = int(input("Общее количество поделок (кратное 3): "))
-numberCraftsBoys = number // 6
-numberCraftsGirl = number - 2 * numberCraftsBoys
+countEagles = 0
+countTails = 0
+for j in arrayCoins:
+    if j == 0:
+        countEagles += 1
+    else:
+        countTails += 1
 
-print(f"Петя - {numberCraftsBoys}; Катя - {numberCraftsGirl}; Серёжа - {numberCraftsBoys}")
-'''
-
-# Задача 6: Вы пользуетесь общественным транспортом? Вероятно, вы расплачивались за проезд и получали билет с номером. Счастливым билетом называют такой билет с шестизначным номером, где сумма первых трех цифр равна сумме последних трех. Т.е. билет с номером 385916 – счастливый, т.к. 3+8+5=9+1+6. Вам требуется написать программу, которая проверяет счастливость билета.
-'''
-number = 0
-while number < 100000 or number > 999999:
-    number = int(input("Введите целое шестизначное число: "))
-sum1 = 0
-sum2 = 0
-
-firstHalfNumber = str( number // 1000 )
-secondHalfNumber = str( number % 1000 )
-
-for i in firstHalfNumber:
-    sum1 += int(i)
-for j in secondHalfNumber:
-    sum2 += int(j)
-
-if sum1 == sum2:
-    print("Yes")
+if countEagles < countTails:
+    print(f"Переверните {countEagles} орлов!")
+elif countEagles > countTails:
+    print(f"Переверните {countTails} решек!")
 else:
-    print("No")
+    print(f"Можете перевернуть как орлов, так и решек: {countTails}!")
+# '''
+
+
+# Задача 12: Петя и Катя – брат и сестра. Петя – студент, а Катя – школьница. Петя помогает Кате по математике. Он задумывает два натуральных числа X и Y (X,Y≤1000), а Катя должна их отгадать. Для этого Петя делает две подсказки. Он называет сумму этих чисел S и их произведение P. Помогите Кате отгадать задуманные Петей числа.
 '''
+numberX = random.randint(0, 1000)
+numberY = random.randint(0, 1000)
+if numberX > numberY:
+    newNumber = numberX
+    numberX = numberY
+    numberY = newNumber
 
-# Задача 8: Требуется определить, можно ли от шоколадки размером n × m долек отломить k долек, если разрешается сделать один разлом по прямой между дольками (то есть разломить шоколадку на два прямоугольника).
-'''
-print("Кол-во долек шоколадки по длине и ширине: ")
-rows = int(input())
-columns = int(input())
+print(f"Сумма чисел: {numberX + numberY}\nПроизведение чисел: {numberX * numberY}")
 
-numberSlices = int(input("Количество долек за один разлом: "))
+answerX = int(input("Какое первое число загадал Петя (оно должно быть <= второго): "))
+answerY = int(input("Какое второе число загадано Петей: "))
 
-if numberSlices % rows == 0 or numberSlices % columns == 0:
-    print("Yes")
+if answerX == numberX and answerY == numberY:
+    print("Верно!")
 else:
-    print("No")
+    print(f"Правильный ответ: {numberX}, {numberY}")
+'''
+
+
+
+# Задача 14: Требуется вывести все целые степени двойки (т.е. числа вида 2k), не превосходящие числа N.
+'''
+number = int(input("Введите натуральное число: "))
+
+i = 0
+while 2 ** i <= number:
+    print(2 ** i, end="  ")
+    i += 1
 '''
