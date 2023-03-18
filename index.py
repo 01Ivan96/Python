@@ -1,59 +1,86 @@
 import random
 
-# Задача 10: На столе лежат n монеток. Некоторые из них лежат вверх решкой, а некоторые – гербом. Определите минимальное число монеток, которые нужно перевернуть, чтобы все монетки были повернуты вверх одной и той же стороной. Выведите минимальное количество монет, которые нужно перевернуть
+# Задача 16: Требуется вычислить, сколько раз встречается некоторое число X в массиве A[1..N]. Пользователь в первой строке вводит натуральное число N – количество элементов в массиве. В последующих  строках записаны N целых чисел Ai. Последняя строка содержит число X
 # '''
-numberCoins = int(input("Кол-во монет: "))
 
-arrayCoins = []
-for i in range(numberCoins):
-    arrayCoins.append(random.randint(0, 1))
-print(arrayCoins)
+lenList = int(input("Длина списка: "))
+listNumbers = []
+for i in range(lenList):
+ listNumbers.append( random.randint(1, 10) )
+print(listNumbers)
 
-countEagles = 0
-countTails = 0
-for j in arrayCoins:
-    if j == 0:
-        countEagles += 1
-    else:
-        countTails += 1
+searchNumber = int(input("Число необходимое для поиска: "))
 
-if countEagles < countTails:
-    print(f"Переверните {countEagles} орлов!")
-elif countEagles > countTails:
-    print(f"Переверните {countTails} решек!")
-else:
-    print(f"Можете перевернуть как орлов, так и решек: {countTails}!")
+# 1 способ
+countNumber = 0
+for j in listNumbers:
+ if j == searchNumber:
+  countNumber += 1
+
+# 2 способ
+# countNumber = listNumbers.count(searchNumber)
+
+print(countNumber)
 # '''
 
 
-# Задача 12: Петя и Катя – брат и сестра. Петя – студент, а Катя – школьница. Петя помогает Кате по математике. Он задумывает два натуральных числа X и Y (X,Y≤1000), а Катя должна их отгадать. Для этого Петя делает две подсказки. Он называет сумму этих чисел S и их произведение P. Помогите Кате отгадать задуманные Петей числа.
-'''
-numberX = random.randint(0, 1000)
-numberY = random.randint(0, 1000)
-if numberX > numberY:
-    newNumber = numberX
-    numberX = numberY
-    numberY = newNumber
-
-print(f"Сумма чисел: {numberX + numberY}\nПроизведение чисел: {numberX * numberY}")
-
-answerX = int(input("Какое первое число загадал Петя (оно должно быть <= второго): "))
-answerY = int(input("Какое второе число загадано Петей: "))
-
-if answerX == numberX and answerY == numberY:
-    print("Верно!")
-else:
-    print(f"Правильный ответ: {numberX}, {numberY}")
+# Задача 18: Требуется найти в массиве A[1..N] самый близкий по величине элемент к заданному числу X. Пользователь в первой строке вводит натуральное число N – количество элементов в массиве. В последующих  строках записаны N целых чисел Ai. Последняя строка содержит число X
 '''
 
+lenList = int(input("Длина списка: "))
+listNumbers = []
+for i in range(lenList):
+ listNumbers.append( random.randint(1, 10) )
+print(listNumbers)
+
+newNumber = int(input("Введите число: "))
+
+flagLeft = False
+if min(listNumbers) < newNumber:
+ flagLeft = True
+ possibleNumberLeft = min(listNumbers)
+
+flagRight = False
+if max(listNumbers) > newNumber:
+ flagRight = True
+ possibleNumberRight = max(listNumbers)
 
 
-# Задача 14: Требуется вывести все целые степени двойки (т.е. числа вида 2k), не превосходящие числа N.
+for j in listNumbers:
+ if j < newNumber and ( newNumber - j < newNumber - possibleNumberLeft ):
+  possibleNumberLeft = j
+ elif j > newNumber and ( j - newNumber < possibleNumberRight - newNumber ):
+  possibleNumberRight = j
+ 
+if flagLeft and flagRight:
+ print(f"{possibleNumberLeft}, {possibleNumberRight}")
+elif flagLeft:
+ print(f"{possibleNumberLeft}, а числа больше {newNumber} нет!")
+elif flagRight:
+ print(f"{possibleNumberRight}, а числа меньше {newNumber} нет!")
 '''
-number = int(input("Введите натуральное число: "))
 
-i = 0
-while 2 ** i <= number:
-    print(2 ** i, end="  ")
-    i += 1
+
+# Задача 20: * В настольной игре Скрабл (Scrabble) каждая буква имеет определенную ценность. В случае с английским алфавитом очки распределяются так:A, E, I, O, U, L, N, S, T, R – 1 очко; D, G – 2 очка; B, C, M, P – 3 очка; F, H, V, W, Y – 4 очка; K – 5 очков; J, X – 8 очков; Q, Z – 10 очков. А русские буквы оцениваются так: А, В, Е, И, Н, О, Р, С, Т – 1 очко; Д, К, Л, М, П, У – 2 очка; Б, Г, Ё, Ь, Я – 3 очка; Й, Ы – 4 очка; Ж, З, Х, Ц, Ч – 5 очков; Ш, Э, Ю – 8 очков; Ф, Щ, Ъ – 10 очков. Напишите программу, которая вычисляет стоимость введенного пользователем слова. Будем считать, что на вход подается только одно слово, которое содержит либо только английские, либо только русские буквы.
+'''
+priceChar = [
+    [0, ' '],
+    [1, 'АВЕИНОРСТAEIOULNSTR'],
+    [2, 'ДКЛМПУDG'],
+    [3, 'BCMPBCMP'],
+    [4, 'ЙЫFHVWY'],
+    [5, 'ЖЗХЦЧK'],
+    [6, 'ШЭЮJX'],
+    [7, 'ФЩЪQZ']
+]
+
+userWord = input("Введите одно слово: ").upper()
+
+sumPoints = 0
+for char in userWord:
+    for indexItem in range(len(priceChar)):
+        if char in priceChar[indexItem][1]:
+            sumPoints += priceChar[indexItem][0]
+
+print(sumPoints)
 '''
