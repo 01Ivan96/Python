@@ -1,86 +1,53 @@
 import random
 
-# Задача 16: Требуется вычислить, сколько раз встречается некоторое число X в массиве A[1..N]. Пользователь в первой строке вводит натуральное число N – количество элементов в массиве. В последующих  строках записаны N целых чисел Ai. Последняя строка содержит число X
+def creatingList(lenList):
+    listNumbers = []
+    for i in range(lenList):
+        listNumbers.append( random.randint(1, 10) )
+    print(listNumbers)
+    return listNumbers
+
+# Задача 22: Даны два неупорядоченных набора целых чисел (может быть, с повторениями). Выдать без повторений в порядке возрастания все те числа, которые встречаются в обоих наборах.
 # '''
+lenFirstList = int(input("Длина первого списка: "))
+lenSecondList = int(input("Длина второго списка: "))
 
-lenList = int(input("Длина списка: "))
-listNumbers = []
-for i in range(lenList):
- listNumbers.append( random.randint(1, 10) )
-print(listNumbers)
-
-searchNumber = int(input("Число необходимое для поиска: "))
+firstListNumbers = creatingList(lenFirstList)
+secondListNumbers = creatingList(lenSecondList)
 
 # 1 способ
-countNumber = 0
-for j in listNumbers:
- if j == searchNumber:
-  countNumber += 1
+newList = []
+for i in firstListNumbers:
+    if i in secondListNumbers and i not in newList:
+        newList.append(i)
 
 # 2 способ
-# countNumber = listNumbers.count(searchNumber)
+# newSet = set(firstListNumbers) & set(secondListNumbers)
+# newList = list(newSet)
 
-print(countNumber)
+
+newList.sort()
+print(newList)
 # '''
 
 
-# Задача 18: Требуется найти в массиве A[1..N] самый близкий по величине элемент к заданному числу X. Пользователь в первой строке вводит натуральное число N – количество элементов в массиве. В последующих  строках записаны N целых чисел Ai. Последняя строка содержит число X
+# Задача 24: В фермерском хозяйстве в Карелии выращивают чернику. Она растет на круглой грядке, причем кусты высажены только по окружности. Таким образом, у каждого куста есть ровно два соседних. Всего на грядке растет N кустов.
+# Эти кусты обладают разной урожайностью, поэтому ко времени сбора на них выросло различное число ягод – на i-ом кусте выросло ai ягод.
+# В этом фермерском хозяйстве внедрена система автоматического сбора черники. Эта система состоит из управляющего модуля и нескольких собирающих модулей. Собирающий модуль за один заход, находясь непосредственно перед некоторым кустом, собирает ягоды с этого куста и с двух соседних с ним.
+# Напишите программу для нахождения максимального числа ягод, которое может собрать за один заход собирающий модуль, находясь перед некоторым кустом заданной во входном файле грядки.
+
 '''
+numberBushes = int(input("Количество кустов (более 2): "))
 
-lenList = int(input("Длина списка: "))
-listNumbers = []
-for i in range(lenList):
- listNumbers.append( random.randint(1, 10) )
-print(listNumbers)
+print("\nСписок количества ягод на кустах:")
+listNumberBerries = creatingList(numberBushes)
 
-newNumber = int(input("Введите число: "))
+# Последний куст считаем отдельно, т.к. при проходе по for будет происходить выход за длину списка (последний индекс + 1)
+maxSumBerries = listNumberBerries[-2] + listNumberBerries[-1] + listNumberBerries[0]
+for i in range(len(listNumberBerries)-1):
+    sumAroundBush = listNumberBerries[i-1] + listNumberBerries[i] + listNumberBerries[i+1]
+    if sumAroundBush > maxSumBerries:
+        maxSumBerries = sumAroundBush
 
-flagLeft = False
-if min(listNumbers) < newNumber:
- flagLeft = True
- possibleNumberLeft = min(listNumbers)
-
-flagRight = False
-if max(listNumbers) > newNumber:
- flagRight = True
- possibleNumberRight = max(listNumbers)
-
-
-for j in listNumbers:
- if j < newNumber and ( newNumber - j < newNumber - possibleNumberLeft ):
-  possibleNumberLeft = j
- elif j > newNumber and ( j - newNumber < possibleNumberRight - newNumber ):
-  possibleNumberRight = j
- 
-if flagLeft and flagRight:
- print(f"{possibleNumberLeft}, {possibleNumberRight}")
-elif flagLeft:
- print(f"{possibleNumberLeft}, а числа больше {newNumber} нет!")
-elif flagRight:
- print(f"{possibleNumberRight}, а числа меньше {newNumber} нет!")
-'''
-
-
-# Задача 20: * В настольной игре Скрабл (Scrabble) каждая буква имеет определенную ценность. В случае с английским алфавитом очки распределяются так:A, E, I, O, U, L, N, S, T, R – 1 очко; D, G – 2 очка; B, C, M, P – 3 очка; F, H, V, W, Y – 4 очка; K – 5 очков; J, X – 8 очков; Q, Z – 10 очков. А русские буквы оцениваются так: А, В, Е, И, Н, О, Р, С, Т – 1 очко; Д, К, Л, М, П, У – 2 очка; Б, Г, Ё, Ь, Я – 3 очка; Й, Ы – 4 очка; Ж, З, Х, Ц, Ч – 5 очков; Ш, Э, Ю – 8 очков; Ф, Щ, Ъ – 10 очков. Напишите программу, которая вычисляет стоимость введенного пользователем слова. Будем считать, что на вход подается только одно слово, которое содержит либо только английские, либо только русские буквы.
-'''
-priceChar = [
-    [0, ' '],
-    [1, 'АВЕИНОРСТAEIOULNSTR'],
-    [2, 'ДКЛМПУDG'],
-    [3, 'BCMPBCMP'],
-    [4, 'ЙЫFHVWY'],
-    [5, 'ЖЗХЦЧK'],
-    [6, 'ШЭЮJX'],
-    [7, 'ФЩЪQZ']
-]
-
-userWord = input("Введите одно слово: ").upper()
-
-sumPoints = 0
-for char in userWord:
-    for indexItem in range(len(priceChar)):
-        if char in priceChar[indexItem][1]:
-            sumPoints += priceChar[indexItem][0]
-
-print(sumPoints)
+print(maxSumBerries)
 '''
