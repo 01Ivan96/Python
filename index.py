@@ -1,26 +1,27 @@
-# Задача 26:  Напишите программу, которая на вход принимает два числа A и B, и возводит число А в целую степень B с помощью рекурсии.
+import random
+
+# Задача 30:  Заполните массив элементами арифметической прогрессии. Её первый элемент, разность и количество элементов нужно ввести с клавиатуры. Формула для получения n-го члена прогрессии: an = a1 + (n-1) * d.
+# Каждое число вводится с новой строки.
 # '''
-number = int(input("Основание степени: "))
-degree = int(input("Степень числа: "))
+firstElement = int(input("Первый элемент: "))
+diff = int(input("Разность арифметической прогрессии: "))
+amountElements = int(input("Количество элементов: "))
 
-def degreeOfNumber(number, degree):
-    if degree != 1:
-        return number * degreeOfNumber(number, degree - 1)
-    return number
+listNumbers = [ firstElement+diff*(i-1) for i in range(1, amountElements+1) ]
 
-print(f"{number} ^ {degree} = {degreeOfNumber(number, degree)}")
+print(listNumbers)
 # '''
 
 
-# Задача 28: Напишите рекурсивную функцию sum(a, b), возвращающую сумму двух целых неотрицательных чисел. Из всех арифметических операций допускаются только +1 и -1. Также нельзя использовать циклы.
+# Задача 32: Определить индексы элементов массива (списка), значения которых принадлежат заданному диапазону (т.е. не меньше заданного минимума и не больше заданного максимума)
 '''
-firstNumber = int(input("Первое число: "))
-secondNumber = int(input("Второе число: "))
+amountElements = int(input("Количество элементов: "))
+firstNumber = int(input("Минимальный элемент: "))
+secondNumber = int(input("Максимальный элемент: "))
 
-def sumNumbers(number1, number2):
-    if number2 == 0:
-        return number1
-    return 1 + sumNumbers(number1, number2 - 1)
+listNumbers = [ random.randint(0, 10) for i in range(amountElements) ]
+print(listNumbers)
 
-print(sumNumbers(firstNumber, secondNumber))
+listIndex = [ i for i in range(len(listNumbers)) if firstNumber <= listNumbers[i] <= secondNumber ]
+print(listIndex)
 '''
