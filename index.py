@@ -1,27 +1,36 @@
 import random
 
-# Задача 30:  Заполните массив элементами арифметической прогрессии. Её первый элемент, разность и количество элементов нужно ввести с клавиатуры. Формула для получения n-го члена прогрессии: an = a1 + (n-1) * d.
-# Каждое число вводится с новой строки.
-# '''
-firstElement = int(input("Первый элемент: "))
-diff = int(input("Разность арифметической прогрессии: "))
-amountElements = int(input("Количество элементов: "))
-
-listNumbers = [ firstElement+diff*(i-1) for i in range(1, amountElements+1) ]
-
-print(listNumbers)
-# '''
-
-
-# Задача 32: Определить индексы элементов массива (списка), значения которых принадлежат заданному диапазону (т.е. не меньше заданного минимума и не больше заданного максимума)
+# Задача 34:  Винни-Пух попросил Вас посмотреть, есть ли в его стихах ритм. Поскольку разобраться в его кричалках не настолько просто, насколько легко он их придумывает, Вам стоит написать программу. Винни-Пух считает, что ритм есть, если число слогов (т.е. число гласных букв) в каждой фразе стихотворения одинаковое. Фраза может состоять из одного слова, если во фразе несколько слов, то они разделяются дефисами. Фразы отделяются друг от друга пробелами. Стихотворение  Винни-Пух вбивает в программу с клавиатуры. В ответе напишите “Парам пам-пам”, если с ритмом все в порядке и “Пам парам”, если с ритмом все не в порядке
 '''
-amountElements = int(input("Количество элементов: "))
-firstNumber = int(input("Минимальный элемент: "))
-secondNumber = int(input("Максимальный элемент: "))
+def CountVowels(word):
+    count = 0
+    for i in word:
+        if i.upper() in listVowels:
+            count += 1
+    return count
 
-listNumbers = [ random.randint(0, 10) for i in range(amountElements) ]
-print(listNumbers)
+listVowels = ["А", "У", "О", "Ы", "И", "Э", "Я", "Ю", "Ё", "Е"]
+text = "пара-ра-рам рам-пам-папам па-ра-па-па"
 
-listIndex = [ i for i in range(len(listNumbers)) if firstNumber <= listNumbers[i] <= secondNumber ]
-print(listIndex)
+listCountVowelsInWords = list( map(CountVowels, text.split()) )
+
+if all( k == listCountVowelsInWords[0] for k in listCountVowelsInWords ):
+    print("Парам пам-пам")
+else:
+    print("Пам парам")
 '''
+
+
+# Задача 36: Напишите функцию print_operation_table(operation, num_rows=6, num_columns=6), которая принимает в качестве аргумента функцию, вычисляющую элемент по номеру строки и столбца. Аргументы num_rows и num_columns указывают число строк и столбцов таблицы, которые должны быть распечатаны. Нумерация строк и столбцов идет с единицы (подумайте, почему не с нуля). Примечание: бинарной операцией называется любая операция, у которой ровно два аргумента, как, например, у операции умножения.
+# '''
+def print_operation_table(operation, num_rows, num_columns):
+    for i in range(1, num_rows+1):
+        for j in range(1, num_columns+1):
+            print(operation(i, j), end="\t")
+        print()
+        
+num_rows = 6
+num_columns = 6
+
+print_operation_table(lambda x, y: x*y, num_rows, num_columns)
+# '''
